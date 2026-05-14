@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guess The Number Game</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            text-align: center;
+            background-color: lightblue;
+            padding-top: 50px;
+        }
+
+        .box{
+            background: white;
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input{
+            padding: 10px;
+            width: 100px;
+        }
+
+        button{
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message{
+            margin-top: 20px;
+            font-size: 20px;
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <h1>Guess The Number</h1>
+
+        <p>Guess a number between 1 and 10</p>
+        
+        <p id="attempts">You have 3 attempts</p>
+
+        <input type="number" id="guess">
+
+        <button onclick="checkNumber()">Guess</button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 10) + 1;
+        let attempts = 0;
+        const maxAttempts = 3;
+
+        function checkNumber(){
+            attempts++;
+            let userGuess = document.getElementById("guess").value;
+            let button = document.querySelector("button");
+            let remainingAttempts = maxAttempts - attempts;
+
+            document.getElementById("attempts").innerHTML = 
+            "You have " + remainingAttempts + " attempts";
+
+            if(userGuess == secretNumber){
+                document.getElementById("message").innerHTML =
+                "Correct! 🎉";
+                button.disabled = true;
+            }
+            else if(attempts >= maxAttempts){
+                document.getElementById("message").innerHTML =
+                "Game Over! The number was <strong>" + secretNumber + "</strong>";
+                button.disabled = true;
+            }
+            else if(userGuess > secretNumber){
+                document.getElementById("message").innerHTML =
+                "Too High! You have " + remainingAttempts + " attempts";
+            }
+            else{
+                document.getElementById("message").innerHTML =
+                "Too Low! You have " + remainingAttempts + " attempts";
+            }
+        }
+    </script>
+
+</body>
+</html>
